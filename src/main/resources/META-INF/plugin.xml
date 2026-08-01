@@ -1,0 +1,50 @@
+<idea-plugin url="https://github.com/addiks/intellij-sdi">
+    <id>de.addiks.intellij-sdi</id>
+    <name>Single Document Interface (SDI)</name>
+    <vendor email="intellij-plugins@addiks.de" url="https://addiks.de">addiks.de</vendor>
+    <description><![CDATA[
+        <p>
+            This plugin transforms IntelliJ into a Single-Document-Interface.
+            Everything will be put into it\'s own floating native by default:
+        </p>
+        <ul>
+            <li>Every Tool (like the Debug- or Run-Panes)</li>
+            <li>Every open document (file, console, database-view, ...)</li>
+            <li>The size of each window will change dynamically depending on it's contents</li>
+        </ul>
+    ]]></description>
+    <depends>com.intellij.modules.platform</depends>
+
+    <applicationListeners>
+        <!-- https://plugins.jetbrains.com/docs/intellij/intellij-platform-extension-point-list.html#intellij-platform-listeners -->
+        <listener
+                class="de.addiks.intellijsdi.intellijsdi.listeners.ToolWindowListener"
+                topic="com.intellij.openapi.wm.ex.ToolWindowManagerListener"
+        />
+        <listener
+                class="de.addiks.intellijsdi.intellijsdi.listeners.ToolWindowViewListener"
+                topic="com.intellij.ui.viewModel.extraction.ToolWindowViewModelListener"
+        />
+        <listener
+                class="de.addiks.intellijsdi.intellijsdi.listeners.FileEditorListener"
+                topic="com.intellij.openapi.fileEditor.FileEditorManagerListener"
+        />
+    </applicationListeners>
+
+    <!-- Extension points defined by the plugin.
+         Read more: https://plugins.jetbrains.com/docs/intellij/plugin-extension-points.html -->
+    <!--
+    <extensions defaultExtensionNs="com.intellij">
+        <editorHighlighterProvider filetype="Earthfile" implementationClass="dev.earthly.plugin.language.syntax.highlighting.EarthlyEditorHighlighterProvider"/>
+        <lang.parserDefinition language="Earthly" implementationClass="dev.earthly.plugin.language.syntax.parser.EarthlyParserDefinition"/>
+        <lang.commenter language="Earthly" implementationClass="dev.earthly.plugin.language.syntax.commenter.EarthlyCommenter"/>
+        <lang.findUsagesProvider language="Earthly" implementationClass="dev.earthly.plugin.language.syntax.EarthlyFindUsagesProvider"/>
+        <lang.refactoringSupport language="Earthly" implementationClass="dev.earthly.plugin.language.syntax.EarthlyRefactoringSupportProvider"/>
+        <!- -    <codeInsight.lineMarkerProvider language="Earthly" implementationClass="dev.earthly.plugin.language.syntax.EarthlyLineMarkerProvider"/> - - >
+        <psi.referenceContributor language="Earthly" implementation="dev.earthly.plugin.language.syntax.EarthlyReferenceContributor"/>
+        <completion.contributor language="Earthly" implementationClass="dev.earthly.plugin.language.syntax.EarthlyCompletionContributor"/>
+        <lang.namesValidator language="Earthly" implementationClass="dev.earthly.plugin.language.syntax.EarthlyNamesValidator"/>
+
+    </extensions>
+     -->
+</idea-plugin>
