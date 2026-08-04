@@ -28,8 +28,7 @@ public class FileEditorListener implements FileEditorManagerListener {
             if (currentlyMoving.contains(file)) {
                 return;
             }
-            if (currentWindor.getOwner() != managerImpl.getMainSplitters()) {
-                currentlyMoving.remove(file);
+            if (currentWindor.getTabbedPane().getTabCount() == 1) {
                 return;
             }
             ApplicationManager.getApplication().invokeLater(() -> {
