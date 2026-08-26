@@ -6,6 +6,7 @@ import com.intellij.openapi.fileEditor.FileEditorManagerListener;
 import com.intellij.openapi.fileEditor.impl.EditorWindow;
 import com.intellij.openapi.fileEditor.impl.FileEditorManagerImpl;
 import com.intellij.openapi.vfs.VirtualFile;
+import de.addiks.intellijsdi.intellijsdi.settings.IntellijSDISettings;
 import org.jetbrains.annotations.NotNull;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -19,6 +20,9 @@ public class FileEditorListener implements FileEditorManagerListener {
     private final List<VirtualFile> currentlyMoving = Collections.synchronizedList(new ArrayList<>());
 
     public void fileOpened(@NotNull FileEditorManager manager, @NotNull VirtualFile file) {
+        if (!IntellijSDISettings.shouldMoveEditorsIntoOwnWindows()) {
+            return;
+        }
         if (manager instanceof FileEditorManagerImpl managerImpl) {
             EditorWindow currentWindor = managerImpl.getCurrentWindow();
             if (currentWindor == null) {
