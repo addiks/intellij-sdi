@@ -11,10 +11,10 @@ window) into an [SDI][sdi] (Single Document Interface), every Document in its ow
 ### Implemented Feaures:
 * Move every Tool-Window into it's own window
 * Move every Editor-Window into it's own window
+* Configuration-options
 
 ### TODO:
 * Determine and apply a usable window-size for newly opened windows
-* Configuration-options
 * Tests
 * Documentation
 * Probably more

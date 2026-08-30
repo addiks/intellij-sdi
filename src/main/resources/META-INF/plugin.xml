@@ -5,12 +5,11 @@
     <description><![CDATA[
         <p>
             This plugin transforms IntelliJ into a Single-Document-Interface.
-            Everything will be put into it\'s own floating native by default:
+            Everything will be put into it\'s own floating native window by default:
         </p>
         <ul>
             <li>Every Tool (like the Debug- or Run-Panes)</li>
             <li>Every open document (file, console, database-view, ...)</li>
-            <li>The size of each window will change dynamically depending on it's contents</li>
         </ul>
     ]]></description>
     <depends>com.intellij.modules.platform</depends>

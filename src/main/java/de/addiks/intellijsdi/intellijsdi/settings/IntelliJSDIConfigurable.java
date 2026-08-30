@@ -24,10 +24,15 @@ public class IntelliJSDIConfigurable implements Configurable {
     public @Nullable JComponent createComponent() {
         panel = new JPanel(new GridLayout(0, 1));
 
-        shouldMoveEditorsIntoOwnWindows = new JBCheckBox("Should move editors into their own windows");
-        shouldMoveToolWindowsIntoOwnWindows = new JBCheckBox("Should move tool-windows into their own windows");
+        shouldMoveEditorsIntoOwnWindows = new JBCheckBox(
+                "Move newly opened text-editors into their own windows"
+        );
+        shouldMoveToolWindowsIntoOwnWindows = new JBCheckBox(
+                "Move newly opened tool-windows into their own windows"
+        );
 
         panel.add(shouldMoveEditorsIntoOwnWindows);
+        panel.add(shouldMoveToolWindowsIntoOwnWindows);
         reset();
 
         return panel;
