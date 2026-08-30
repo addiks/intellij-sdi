@@ -8,6 +8,18 @@ window) into an [SDI][sdi] (Single Document Interface), every Document in its ow
 [mdi]: https://en.wikipedia.org/wiki/Multiple-document_interface
 [sdi]: https://en.wikipedia.org/wiki/Multiple-document_interface#Comparison_with_single-document_interface
 
+### Installation
+Since this plugin uses internal IntelliJ Platform API's, it is not allowed to be listed in the official marketplace.
+Because of that, I have set up my own custom repository on [my homepage][homepage].
+You can add this custom repository (Point it to the [`updatePlugins.xml`][update-plguins-xml] file) and install this
+plugin from there.
+
+Once installed, you can enable (or disable) the features under: 
+    `Settings` > `Appearance & Behaviour` > `Single Document Interface (SDI)`.
+
+[homepage]: https://www.addiks.de/repo/intellij-plugins/
+[update-plguins-xml]: https://www.addiks.de/repo/intellij-plugins/updatePlugins.xml
+
 ### Implemented Feaures:
 * Move every Tool-Window into it's own window
 * Move every Editor-Window into it's own window
