@@ -30,6 +30,17 @@
         />
     </applicationListeners>
 
+    <actions>
+        <action
+            class="de.addiks.intellijsdi.intellijsdi.actions.CloseAllFloatingWindowsAction"
+            id="de.addiks.intellijsdi.intellijsdi.actions.CloseAllFloatingWindowsAction"
+            text="Close All"
+            description="Closes all free-floating windows for this project"
+        >
+            <add-to-group group-id="WindowMenu" anchor="last" />
+        </action>
+    </actions>
+
     <!-- Extension points defined by the plugin.
          Read more: https://plugins.jetbrains.com/docs/intellij/plugin-extension-points.html -->
 
