@@ -21,10 +21,6 @@
                 topic="com.intellij.openapi.wm.ex.ToolWindowManagerListener"
         />
         <listener
-                class="de.addiks.intellijsdi.intellijsdi.listeners.ToolWindowViewListener"
-                topic="com.intellij.ui.viewModel.extraction.ToolWindowViewModelListener"
-        />
-        <listener
                 class="de.addiks.intellijsdi.intellijsdi.listeners.FileEditorListener"
                 topic="com.intellij.openapi.fileEditor.FileEditorManagerListener"
         />
