@@ -28,6 +28,14 @@
                 class="de.addiks.intellijsdi.intellijsdi.listeners.FileEditorListener"
                 topic="com.intellij.openapi.fileEditor.FileEditorManagerListener"
         />
+        <listener
+                class="de.addiks.intellijsdi.intellijsdi.listeners.WindowAutoResizeListener"
+                topic="com.intellij.openapi.editor.event.EditorFactoryListener"
+        />
+        <listener
+                class="de.addiks.intellijsdi.intellijsdi.listeners.WindowAutoResizeListener"
+                topic="com.intellij.openapi.editor.event.DocumentListener"
+        />
     </applicationListeners>
 
     <actions>
@@ -51,5 +59,7 @@
                 instance="de.addiks.intellijsdi.intellijsdi.settings.IntelliJSDIConfigurable"
                 parentId="appearance"
         />
+        <editorFactoryListener implementation="de.addiks.intellijsdi.intellijsdi.listeners.WindowAutoResizeListener" />
+        <editorFactoryDocumentListener implementation="de.addiks.intellijsdi.intellijsdi.listeners.WindowAutoResizeListener" />
     </extensions>
 </idea-plugin>
