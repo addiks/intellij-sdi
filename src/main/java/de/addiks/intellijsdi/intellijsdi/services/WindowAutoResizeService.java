@@ -15,10 +15,10 @@ public final class WindowAutoResizeService {
     private final Map<Document, Window> windowsByDocument = new HashMap<>();
     private final Map<Document, Editor> editorsByDocument = new HashMap<>();
 
-    public void registerEditorWindow(Document document, Window editorWindow, Editor editor) {
-        windowsByDocument.put(document, editorWindow);
+    public void registerEditorWindow(Document document, Window window, Editor editor) {
+        windowsByDocument.put(document, window);
         editorsByDocument.put(document, editor);
-        fitWindowToContent(editorWindow, editor);
+        fitWindowToContent(window, editor);
     }
 
     public void onDocumentModified(Document document) {
@@ -27,11 +27,11 @@ public final class WindowAutoResizeService {
         }
     }
 
-    private void fitWindowToContent(Window editorWindow, Editor editor) {
-        if (editor instanceof EditorEx editorEx) {
+    private void fitWindowToContent(Window window, Editor editor) {
+        if (IntellijSDISettings.shouldResizeToolWindows() && editor instanceof EditorEx editorEx) {
             Dimension extent = editorEx.getScrollPane().getViewport().getExtentSize();
-            double chromeWidth = editorWindow.getWidth() - extent.getWidth();
-            double chromeHeight = editorWindow.getHeight() - extent.getHeight();
+            double chromeWidth = window.getWidth() - extent.getWidth();
+            double chromeHeight = window.getHeight() - extent.getHeight();
 
             Dimension contentSize = editorEx.getContentSize();
 
@@ -41,9 +41,9 @@ public final class WindowAutoResizeService {
             newWidth = Math.clamp(newWidth, IntellijSDISettings.minimumWindowWidth(), IntellijSDISettings.maximumWindowWidth());
             newHeight = Math.clamp(newHeight, IntellijSDISettings.minimumWindowHeight(), IntellijSDISettings.maximumWindowHeight());
 
-            if (newWidth != editorWindow.getWidth() || newHeight != editorWindow.getHeight()) {
-                editorWindow.setSize((int) newWidth, (int) newHeight);
-                editorWindow.validate();
+            if (newWidth != window.getWidth() || newHeight != window.getHeight()) {
+                window.setSize((int) newWidth, (int) newHeight);
+                window.validate();
             }
         }
     }

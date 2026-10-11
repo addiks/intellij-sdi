@@ -4,7 +4,6 @@ import com.intellij.openapi.application.ApplicationManager;
 import com.intellij.openapi.components.PersistentStateComponent;
 import com.intellij.openapi.components.*;
 import org.jspecify.annotations.NonNull;
-import org.jspecify.annotations.Nullable;
 
 @Service(Service.Level.APP)
 @State(
@@ -16,6 +15,7 @@ public final class IntellijSDISettings implements PersistentStateComponent<Intel
     public static class State {
         public boolean shouldMoveEditorsIntoOwnWindows = false;
         public boolean shouldMoveToolWindowsIntoOwnWindows = false;
+        public boolean shouldResizeWindows = false;
         public int minimumWindowWidth = 100;
         public int minimumWindowHeight = 100;
         public int maximumWindowWidth = 1200;
@@ -34,6 +34,10 @@ public final class IntellijSDISettings implements PersistentStateComponent<Intel
 
     public static boolean shouldMoveToolWindowsIntoOwnWindows() {
         return getInstance().getState().shouldMoveToolWindowsIntoOwnWindows;
+    }
+
+    public static boolean shouldResizeToolWindows() {
+        return getInstance().getState().shouldResizeWindows;
     }
 
     public static int minimumWindowWidth() {

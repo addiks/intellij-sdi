@@ -27,11 +27,11 @@ public class WindowAutoResizeListener implements EditorFactoryListener, Document
 
         editor.getComponent().addHierarchyListener(e -> {
             if ((e.getChangeFlags() & PARENT_CHANGED) != 0 || (e.getChangeFlags() & SHOWING_CHANGED) != 0) {
-                Window editorWindow = SwingUtilities.getWindowAncestor(e.getComponent());
-                if (editorWindow != null && !editorWindow.equals(mainWindow)) {
+                Window window = SwingUtilities.getWindowAncestor(e.getComponent());
+                if (window != null && !window.equals(mainWindow)) {
                     ApplicationManager.getApplication().getService(WindowAutoResizeService.class).registerEditorWindow(
                             document,
-                            editorWindow,
+                            window,
                             editor
                     );
                 }
