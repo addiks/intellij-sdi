@@ -4,7 +4,7 @@ import com.intellij.openapi.components.Service;
 import com.intellij.openapi.editor.Document;
 import com.intellij.openapi.editor.Editor;
 import com.intellij.openapi.editor.ex.EditorEx;
-import com.intellij.ui.ScreenUtil;
+import de.addiks.intellijsdi.intellijsdi.settings.IntellijSDISettings;
 
 import java.awt.*;
 import java.util.HashMap;
@@ -34,10 +34,12 @@ public final class WindowAutoResizeService {
             double chromeHeight = editorWindow.getHeight() - extent.getHeight();
 
             Dimension contentSize = editorEx.getContentSize();
-            Rectangle screenSize = ScreenUtil.getScreenRectangle(editorWindow);
 
-            double newWidth = Math.clamp(contentSize.getWidth() + chromeWidth, 100, 1200);
-            double newHeight = Math.clamp(contentSize.getHeight() + chromeHeight, 100, 800);
+            double newWidth = contentSize.getWidth() + chromeWidth;
+            double newHeight = contentSize.getHeight() + chromeHeight;
+
+            newWidth = Math.clamp(newWidth, IntellijSDISettings.minimumWindowWidth(), IntellijSDISettings.maximumWindowWidth());
+            newHeight = Math.clamp(newHeight, IntellijSDISettings.minimumWindowHeight(), IntellijSDISettings.maximumWindowHeight());
 
             if (newWidth != editorWindow.getWidth() || newHeight != editorWindow.getHeight()) {
                 editorWindow.setSize((int) newWidth, (int) newHeight);

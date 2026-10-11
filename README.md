@@ -23,11 +23,11 @@ Once installed, you can enable (or disable) the features under:
 ### Implemented Feaures:
 * Move every Tool-Window into it's own window
 * Move every Editor-Window into it's own window
+* Determine and apply a usable window-size for newly opened windows
 * Configuration-options
 * Close **all** detached windows (Under "Window" > "Close All")
 
 ### TODO:
-* Determine and apply a usable window-size for newly opened windows
 * Close **old** detached windows
 * Shortcut to move from a detached window directy to the main window
 * Tests
