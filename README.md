@@ -21,15 +21,15 @@ Once installed, you can enable (or disable) the features under:
 [update-plguins-xml]: https://www.addiks.de/repo/intellij-plugins/updatePlugins.xml
 
 ### Implemented Feaures:
-* Move every Tool-Window into it's own window
-* Move every Editor-Window into it's own window
+* Move every Tool-Window into its own window
+* Move every Editor-Window into its own window
 * Determine and apply a usable window-size for newly opened windows
 * Configuration-options
 * Close **all** detached windows (Under "Window" > "Close All")
 
 ### TODO:
 * Close **old** detached windows
-* Shortcut to move from a detached window directy to the main window
+* Shortcut to move from a detached window directly to the main window
 * Tests
 * Documentation
 * Probably more

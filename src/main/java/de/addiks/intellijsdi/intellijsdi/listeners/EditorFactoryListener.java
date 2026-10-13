@@ -3,10 +3,7 @@ package de.addiks.intellijsdi.intellijsdi.listeners;
 import com.intellij.openapi.application.ApplicationManager;
 import com.intellij.openapi.editor.Document;
 import com.intellij.openapi.editor.Editor;
-import com.intellij.openapi.editor.event.DocumentEvent;
-import com.intellij.openapi.editor.event.DocumentListener;
 import com.intellij.openapi.editor.event.EditorFactoryEvent;
-import com.intellij.openapi.editor.event.EditorFactoryListener;
 import com.intellij.openapi.wm.WindowManager;
 import de.addiks.intellijsdi.intellijsdi.services.WindowAutoResizeService;
 import org.jetbrains.annotations.NotNull;
@@ -17,7 +14,7 @@ import java.awt.*;
 import static java.awt.event.HierarchyEvent.PARENT_CHANGED;
 import static java.awt.event.HierarchyEvent.SHOWING_CHANGED;
 
-public class WindowAutoResizeListener implements EditorFactoryListener, DocumentListener {
+public class EditorFactoryListener implements com.intellij.openapi.editor.event.EditorFactoryListener {
 
     @Override
     public void editorCreated(@NotNull EditorFactoryEvent event) {
@@ -38,12 +35,4 @@ public class WindowAutoResizeListener implements EditorFactoryListener, Document
             }
         });
     }
-
-    @Override
-    public void documentChanged(@NotNull DocumentEvent event) {
-        ApplicationManager.getApplication().getService(WindowAutoResizeService.class).onDocumentModified(
-                event.getDocument()
-        );
-    }
-
 }

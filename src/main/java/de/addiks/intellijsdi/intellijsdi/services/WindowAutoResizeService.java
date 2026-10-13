@@ -7,17 +7,29 @@ import com.intellij.openapi.editor.ex.EditorEx;
 import de.addiks.intellijsdi.intellijsdi.settings.IntellijSDISettings;
 
 import java.awt.*;
+import java.awt.event.ComponentAdapter;
+import java.awt.event.ComponentEvent;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.concurrent.atomic.AtomicBoolean;
 
 @Service
 public final class WindowAutoResizeService {
     private final Map<Document, Window> windowsByDocument = new HashMap<>();
     private final Map<Document, Editor> editorsByDocument = new HashMap<>();
 
+    private final Map<Window, Dimension> automaticResizesPerWindow = new HashMap<>();
+    private final Map<Window, AtomicBoolean> manuallyResizedWindows = new HashMap<>();
+
     public void registerEditorWindow(Document document, Window window, Editor editor) {
         windowsByDocument.put(document, window);
         editorsByDocument.put(document, editor);
+        window.addComponentListener(new ComponentAdapter() {
+            @Override
+            public void componentResized(ComponentEvent e) {
+                onWindowResized(window);
+            }
+        });
         fitWindowToContent(window, editor);
     }
 
@@ -28,7 +40,10 @@ public final class WindowAutoResizeService {
     }
 
     private void fitWindowToContent(Window window, Editor editor) {
-        if (IntellijSDISettings.shouldResizeToolWindows() && editor instanceof EditorEx editorEx) {
+        if (IntellijSDISettings.shouldResizeToolWindows()
+                && editor instanceof EditorEx editorEx
+                && !wasManuallyResized(window).get()
+        ) {
             Dimension extent = editorEx.getScrollPane().getViewport().getExtentSize();
             double chromeWidth = window.getWidth() - extent.getWidth();
             double chromeHeight = window.getHeight() - extent.getHeight();
@@ -42,10 +57,23 @@ public final class WindowAutoResizeService {
             newHeight = Math.clamp(newHeight, IntellijSDISettings.minimumWindowHeight(), IntellijSDISettings.maximumWindowHeight());
 
             if (newWidth != window.getWidth() || newHeight != window.getHeight()) {
-                window.setSize((int) newWidth, (int) newHeight);
+                var newSize = new Dimension((int) newWidth, (int) newHeight);
+                automaticResizesPerWindow.put(window, newSize);
+                window.setSize(newSize);
                 window.validate();
             }
         }
+    }
+
+    private void onWindowResized(Window window) {
+        Dimension newSize = window.getSize();
+        if (!automaticResizesPerWindow.containsKey(window) || !automaticResizesPerWindow.get(window).equals(newSize)) {
+            wasManuallyResized(window).set(true);
+        }
+    }
+
+    private AtomicBoolean wasManuallyResized(Window window) {
+        return manuallyResizedWindows.computeIfAbsent(window, w -> new AtomicBoolean(false));
     }
 
 }
