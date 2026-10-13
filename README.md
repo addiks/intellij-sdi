@@ -14,7 +14,12 @@ Because of that, I have set up my own custom repository on [my homepage][homepag
 You can add this custom repository (Point it to the [`updatePlugins.xml`][update-plguins-xml] file) and install this
 plugin from there.
 
-Once installed, you can enable (or disable) the features under: 
+Alternatively you can also build your own plugin-jar by cloning this repo in IntelliJ and using
+the Gradle task `intellij platform > composedJar` which will then create the plugin jar file under 
+`build/libs/intellij-sdi-*.jar`. This file can then be installed in the plugin window by clicking on the cogwheel and 
+then using the `Install plugin from disk` option.
+
+Once installed you can enable, disable and configure the features under: 
     `Settings` > `Appearance & Behaviour` > `Single Document Interface (SDI)`.
 
 [homepage]: https://www.addiks.de/repo/intellij-plugins/
