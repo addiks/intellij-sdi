@@ -1,5 +1,6 @@
 package de.addiks.intellijsdi.intellijsdi.services;
 
+import com.intellij.openapi.application.ApplicationManager;
 import com.intellij.openapi.components.Service;
 import com.intellij.openapi.editor.Document;
 import com.intellij.openapi.editor.Editor;
@@ -30,13 +31,17 @@ public final class WindowAutoResizeService {
                 onWindowResized(window);
             }
         });
-        fitWindowToContent(window, editor);
+        scheduleWindowToContentFitting(window, editor);
     }
 
     public void onDocumentModified(Document document) {
         if (windowsByDocument.containsKey(document) && editorsByDocument.containsKey(document)) {
-            fitWindowToContent(windowsByDocument.get(document), editorsByDocument.get(document));
+            scheduleWindowToContentFitting(windowsByDocument.get(document), editorsByDocument.get(document));
         }
+    }
+
+    private void scheduleWindowToContentFitting(Window window, Editor editor) {
+        ApplicationManager.getApplication().invokeLater(() -> fitWindowToContent(window, editor));
     }
 
     private void fitWindowToContent(Window window, Editor editor) {
