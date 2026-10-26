@@ -6,13 +6,16 @@ import com.intellij.openapi.fileEditor.FileEditorManagerListener;
 import com.intellij.openapi.fileEditor.impl.EditorWindow;
 import com.intellij.openapi.fileEditor.impl.FileEditorManagerImpl;
 import com.intellij.openapi.vfs.VirtualFile;
+import com.intellij.openapi.wm.WindowManager;
 import de.addiks.intellijsdi.intellijsdi.settings.IntellijSDISettings;
 import org.jetbrains.annotations.NotNull;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import javax.swing.*;
+import java.awt.*;
 import java.util.*;
+import java.util.List;
 
 public class FileEditorListener implements FileEditorManagerListener {
     private static final Logger log = LoggerFactory.getLogger(FileEditorListener.class);
@@ -32,7 +35,11 @@ public class FileEditorListener implements FileEditorManagerListener {
             if (currentlyMoving.contains(file)) {
                 return;
             }
-            if (currentWindor.getTabbedPane().getTabCount() == 1) {
+            JFrame mainWindow = WindowManager.getInstance().getFrame(managerImpl.getProject());
+            Window window = SwingUtilities.getWindowAncestor(currentWindor.getOwner());
+            boolean isProjectWindow = Objects.equals(mainWindow, window);
+            if (currentWindor.getTabbedPane().getTabCount() == 1
+                    && (!IntellijSDISettings.shouldPreventEditorsInProjectWindow() || !isProjectWindow)) {
                 return;
             }
             ApplicationManager.getApplication().invokeLater(() -> {

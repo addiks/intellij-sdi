@@ -16,6 +16,7 @@ public final class IntellijSDISettings implements PersistentStateComponent<Intel
         public boolean shouldMoveEditorsIntoOwnWindows = false;
         public boolean shouldMoveToolWindowsIntoOwnWindows = false;
         public boolean shouldResizeWindows = false;
+        public boolean shouldPreventEditorsInProjectWindow = false;
         public int minimumWindowWidth = 100;
         public int minimumWindowHeight = 100;
         public int maximumWindowWidth = 1200;
@@ -38,6 +39,10 @@ public final class IntellijSDISettings implements PersistentStateComponent<Intel
 
     public static boolean shouldResizeToolWindows() {
         return getInstance().getState().shouldResizeWindows;
+    }
+
+    public static boolean shouldPreventEditorsInProjectWindow() {
+        return getInstance().getState().shouldPreventEditorsInProjectWindow;
     }
 
     public static int minimumWindowWidth() {

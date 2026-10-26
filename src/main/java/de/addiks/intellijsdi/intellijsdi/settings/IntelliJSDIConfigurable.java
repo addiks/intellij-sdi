@@ -26,6 +26,7 @@ public class IntelliJSDIConfigurable implements Configurable {
     private JBCheckBox shouldMoveEditorsIntoOwnWindows;
     private JBCheckBox shouldMoveToolWindowsIntoOwnWindows;
     private JBCheckBox shouldResizeWindows;
+    private JBCheckBox shouldPreventEditorsInProjectWindow;
     private JBTextField minimumWindowWidthField;
     private JBTextField minimumWindowHeightField;
     private JBTextField maximumWindowWidthField;
@@ -46,7 +47,6 @@ public class IntelliJSDIConfigurable implements Configurable {
         panel.setLayout(layout);
         panel.setPreferredSize(new Dimension(100, 100));
 
-
         shouldMoveEditorsIntoOwnWindows = new JBCheckBox(
                 "Move newly opened text-editors into their own windows"
         );
@@ -56,9 +56,13 @@ public class IntelliJSDIConfigurable implements Configurable {
         shouldResizeWindows = new JBCheckBox(
                 "Should automatically resize windows"
         );
+        shouldPreventEditorsInProjectWindow = new JBCheckBox(
+                "Should keep editors from appearing in the main project window"
+        );
 
         panel.add(shouldMoveEditorsIntoOwnWindows);
         panel.add(shouldMoveToolWindowsIntoOwnWindows);
+        panel.add(shouldPreventEditorsInProjectWindow);
         panel.add(shouldResizeWindows);
 
         minimumWindowWidthField = addNumberFieldWithLabel("Minimum window width", settings.minimumWindowWidth);
@@ -89,6 +93,7 @@ public class IntelliJSDIConfigurable implements Configurable {
         var settings = IntellijSDISettings.getInstance().getState();
         return settings.shouldMoveEditorsIntoOwnWindows != shouldMoveEditorsIntoOwnWindows.isSelected()
                 || settings.shouldMoveToolWindowsIntoOwnWindows != shouldMoveToolWindowsIntoOwnWindows.isSelected()
+                || settings.shouldPreventEditorsInProjectWindow != shouldPreventEditorsInProjectWindow.isSelected()
                 || settings.shouldResizeWindows != shouldResizeWindows.isSelected()
                 || settings.minimumWindowWidth != Integer.parseInt(minimumWindowWidthField.getText())
                 || settings.minimumWindowHeight != Integer.parseInt(minimumWindowHeightField.getText())
@@ -101,6 +106,7 @@ public class IntelliJSDIConfigurable implements Configurable {
         var settings = IntellijSDISettings.getInstance().getState();
         settings.shouldMoveEditorsIntoOwnWindows = shouldMoveEditorsIntoOwnWindows.isSelected();
         settings.shouldMoveToolWindowsIntoOwnWindows = shouldMoveToolWindowsIntoOwnWindows.isSelected();
+        settings.shouldPreventEditorsInProjectWindow = shouldPreventEditorsInProjectWindow.isSelected();
         settings.shouldResizeWindows = shouldResizeWindows.isSelected();
         settings.minimumWindowWidth = Integer.parseInt(minimumWindowWidthField.getText());
         settings.minimumWindowHeight = Integer.parseInt(minimumWindowHeightField.getText());
@@ -113,6 +119,7 @@ public class IntelliJSDIConfigurable implements Configurable {
         var settings = IntellijSDISettings.getInstance().getState();
         shouldMoveEditorsIntoOwnWindows.setSelected(settings.shouldMoveEditorsIntoOwnWindows);
         shouldMoveToolWindowsIntoOwnWindows.setSelected(settings.shouldMoveToolWindowsIntoOwnWindows);
+        shouldPreventEditorsInProjectWindow.setSelected(settings.shouldPreventEditorsInProjectWindow);
         shouldResizeWindows.setSelected(settings.shouldResizeWindows);
         minimumWindowWidthField.setText(Integer.toString(settings.minimumWindowWidth));
         minimumWindowHeightField.setText(Integer.toString(settings.minimumWindowHeight));
