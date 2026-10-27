@@ -6,6 +6,8 @@ import com.intellij.openapi.editor.Document;
 import com.intellij.openapi.editor.Editor;
 import com.intellij.openapi.editor.ex.EditorEx;
 import de.addiks.intellijsdi.intellijsdi.settings.IntellijSDISettings;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.awt.*;
 import java.awt.event.ComponentAdapter;
@@ -16,6 +18,7 @@ import java.util.concurrent.atomic.AtomicBoolean;
 
 @Service
 public final class WindowAutoResizeService {
+    private static final Logger log = LoggerFactory.getLogger(WindowAutoResizeService.class);
     private final Map<Document, Window> windowsByDocument = new HashMap<>();
     private final Map<Document, Editor> editorsByDocument = new HashMap<>();
 
@@ -41,7 +44,14 @@ public final class WindowAutoResizeService {
     }
 
     private void scheduleWindowToContentFitting(Window window, Editor editor) {
-        ApplicationManager.getApplication().invokeLater(() -> fitWindowToContent(window, editor));
+        Thread.startVirtualThread(() -> {
+            try {
+                Thread.sleep(10);
+                ApplicationManager.getApplication().invokeLater(() -> fitWindowToContent(window, editor));
+            } catch (InterruptedException e) {
+                log.error(e.getMessage(), e);
+            }
+        });
     }
 
     private void fitWindowToContent(Window window, Editor editor) {
