@@ -32,7 +32,17 @@
                 class="de.addiks.intellijsdi.intellijsdi.listeners.DocumentListener"
                 topic="com.intellij.openapi.editor.event.DocumentListener"
         />
+        <listener
+                class="de.addiks.intellijsdi.intellijsdi.listeners.NotificationsListener"
+                topic="com.intellij.notification.Notifications"
+        />
     </applicationListeners>
+    <projectListeners>
+        <listener
+                class="de.addiks.intellijsdi.intellijsdi.listeners.NotificationsListener"
+                topic="com.intellij.notification.Notifications"
+        />
+    </projectListeners>
 
     <actions>
         <action

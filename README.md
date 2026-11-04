@@ -31,10 +31,12 @@ Once installed you can enable, disable and configure the features under:
 * Determine and apply a usable window-size for newly opened windows
 * Configuration-options
 * Close **all** detached windows (Under "Window" > "Close All")
+* Show all notifications in an extra window directly on the desktop (seperately from the project-window)
 
 ### TODO:
 * Close **old** detached windows
 * Shortcut to move from a detached window directly to the main window
+* Copy all menu-items from the project-window to all editor-windows (for the global menu)
 * Tests
 * Documentation
 * Probably more

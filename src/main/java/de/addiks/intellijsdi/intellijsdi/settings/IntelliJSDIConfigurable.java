@@ -27,6 +27,7 @@ public class IntelliJSDIConfigurable implements Configurable {
     private JBCheckBox shouldMoveToolWindowsIntoOwnWindows;
     private JBCheckBox shouldResizeWindows;
     private JBCheckBox shouldPreventEditorsInProjectWindow;
+    private JBCheckBox shouldShowNotificationsInSeparateWindow;
     private JBTextField minimumWindowWidthField;
     private JBTextField minimumWindowHeightField;
     private JBTextField maximumWindowWidthField;
@@ -59,11 +60,15 @@ public class IntelliJSDIConfigurable implements Configurable {
         shouldPreventEditorsInProjectWindow = new JBCheckBox(
                 "Should keep editors from appearing in the main project window"
         );
+        shouldShowNotificationsInSeparateWindow = new JBCheckBox(
+                "Should show notifications in separate windows"
+        );
 
         panel.add(shouldMoveEditorsIntoOwnWindows);
         panel.add(shouldMoveToolWindowsIntoOwnWindows);
         panel.add(shouldPreventEditorsInProjectWindow);
         panel.add(shouldResizeWindows);
+        panel.add(shouldShowNotificationsInSeparateWindow);
 
         minimumWindowWidthField = addNumberFieldWithLabel("Minimum window width", settings.minimumWindowWidth);
         minimumWindowHeightField = addNumberFieldWithLabel("Minimum window height", settings.minimumWindowHeight);
@@ -95,6 +100,7 @@ public class IntelliJSDIConfigurable implements Configurable {
                 || settings.shouldMoveToolWindowsIntoOwnWindows != shouldMoveToolWindowsIntoOwnWindows.isSelected()
                 || settings.shouldPreventEditorsInProjectWindow != shouldPreventEditorsInProjectWindow.isSelected()
                 || settings.shouldResizeWindows != shouldResizeWindows.isSelected()
+                || settings.shouldShowNotificationsInSeparateWindow != shouldShowNotificationsInSeparateWindow.isSelected()
                 || settings.minimumWindowWidth != Integer.parseInt(minimumWindowWidthField.getText())
                 || settings.minimumWindowHeight != Integer.parseInt(minimumWindowHeightField.getText())
                 || settings.maximumWindowWidth != Integer.parseInt(maximumWindowWidthField.getText())
@@ -108,6 +114,7 @@ public class IntelliJSDIConfigurable implements Configurable {
         settings.shouldMoveToolWindowsIntoOwnWindows = shouldMoveToolWindowsIntoOwnWindows.isSelected();
         settings.shouldPreventEditorsInProjectWindow = shouldPreventEditorsInProjectWindow.isSelected();
         settings.shouldResizeWindows = shouldResizeWindows.isSelected();
+        settings.shouldShowNotificationsInSeparateWindow = shouldShowNotificationsInSeparateWindow.isSelected();
         settings.minimumWindowWidth = Integer.parseInt(minimumWindowWidthField.getText());
         settings.minimumWindowHeight = Integer.parseInt(minimumWindowHeightField.getText());
         settings.maximumWindowWidth = Integer.parseInt(maximumWindowWidthField.getText());
@@ -121,6 +128,7 @@ public class IntelliJSDIConfigurable implements Configurable {
         shouldMoveToolWindowsIntoOwnWindows.setSelected(settings.shouldMoveToolWindowsIntoOwnWindows);
         shouldPreventEditorsInProjectWindow.setSelected(settings.shouldPreventEditorsInProjectWindow);
         shouldResizeWindows.setSelected(settings.shouldResizeWindows);
+        shouldShowNotificationsInSeparateWindow.setSelected(settings.shouldShowNotificationsInSeparateWindow);
         minimumWindowWidthField.setText(Integer.toString(settings.minimumWindowWidth));
         minimumWindowHeightField.setText(Integer.toString(settings.minimumWindowHeight));
         maximumWindowWidthField.setText(Integer.toString(settings.maximumWindowWidth));
