@@ -53,6 +53,13 @@
         >
             <add-to-group group-id="WindowMenu" anchor="last" />
         </action>
+        <action
+                class="de.addiks.intellijsdi.intellijsdi.actions.CreateTestNotificationAction"
+                id="de.addiks.intellijsdi.intellijsdi.actions.CreateTestNotificationAction"
+                text="Create Test-Notification"
+        >
+            <add-to-group group-id="WindowMenu" anchor="last" />
+        </action>
     </actions>
 
     <!-- Extension points defined by the plugin.
