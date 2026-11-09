@@ -21,7 +21,8 @@ import java.util.Map;
 
 @Service
 public final class NotificationsService {
-    private static final int TOP_MARGIN = 100;
+    private static final int WIDTH = 500;
+    private static final int HEIGHT = 100;
 
     private final JFrame window = new JFrame();
     private final JBBox vbox = JBBox.createVerticalBox();
@@ -55,8 +56,8 @@ public final class NotificationsService {
     }
 
     private Dimension windowSize() {
-        int width = 0;
-        int height = TOP_MARGIN;
+        int width = WIDTH;
+        int height = 0;
 
         for (Balloon balloon : balloons.keySet()) {
             Dimension balloonSize = balloon.getPreferredSize();
@@ -77,14 +78,18 @@ public final class NotificationsService {
     }
 
     private void add(Balloon balloon, JLayeredPane pane) {
+        Dimension windowSizeBeforeAdd = windowSize();
         balloons.put(balloon, pane);
         Dimension balloonSize = balloon.getPreferredSize();
-        Dimension windowSize = windowSize();
         pane.setSize(balloonSize);
-        pane.setLocation(0, windowSize.height - TOP_MARGIN);
         updateWindow();
         vbox.add(pane);
-        balloon.show(pane);
+        pane.setLocation(0, windowSizeBeforeAdd.height);
+        if (balloon instanceof BalloonImpl balloonImpl) {
+            balloonImpl.show(pane, new Rectangle(0, windowSizeBeforeAdd.height, WIDTH, HEIGHT));
+        } else {
+            balloon.show(pane);
+        }
     }
 
     private void remove(Balloon balloon) {
@@ -104,7 +109,7 @@ public final class NotificationsService {
 
     private Balloon createBalloon(JLayeredPane pane, Notification notification) {
         if (notification.getBalloon() instanceof BalloonImpl balloon && !balloon.isVisible()) {
-            balloon.show(pane);
+            balloon.show(pane, new Rectangle(WIDTH, HEIGHT));
             return balloon;
         } else if (notification.getBalloon() != null) {
             notification.hideBalloon();
