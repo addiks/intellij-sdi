@@ -14,7 +14,7 @@ intellijPlatform {
     pluginConfiguration {
         id = "de.addiks.intellij-sdi"
         name = "Single Document Interface - Every document in it's own window"
-        version = "0.1.3"
+        version = "0.1.4"
     }
 }
 
